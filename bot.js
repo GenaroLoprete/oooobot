@@ -48,4 +48,5 @@ function onConnectedHandler(addr, port) {
     console.log(`* Connected to ${addr}:${port}`);
 }
 
-///asdasdasdasd
+//TODO
+//Chequear que solo contemple si el mensaje es mayusculas, o que cuando lo remplace sea todo en mayusculas 
