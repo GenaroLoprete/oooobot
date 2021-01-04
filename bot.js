@@ -27,7 +27,7 @@ function onMessageHandler(target, context, msg, self) {
         return;
     } // Ignore messages from the bot
 
-    if (msg.toLowerCase().contains('o')) {
+    if (msg.toLowerCase().includes('o')) {
         return; //If the msg don't contain an o, return because the bot is gonna log the same mesagge
     }
 
