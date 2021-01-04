@@ -1,15 +1,15 @@
-const { maxNumber } = require('./constants');
-
 //get random number between 1 and the predefined number as maxnumber
 module.exports.getRandomNumber = () => {
-    return Math.floor(Math.random() * process.env.SECRETNUMBER) + 1
+    return Math.floor(Math.random() * process.env.SECRETNUMBER) + 1; //Generate a random number, this for preventing the bot to log the message for every message in the chat
 }
 
 module.exports.replaceO = (message) => {
-    return message.replace(/o/g, ' OOOO ');
+    return message.replace(/o/g, ' OOOO '); //Search for al o's and replace for the OOOO
 }
 
 module.exports.logMessage = (message, client, target) => {
-    const newMessage = this.replaceO(message.trim());
-    client.say(target, newMessage);
+    let finalMessage = message.toLowerCase(); //Message setted to lower case
+    finalMessage = finalMessage.trim(); //Remove spaces from the start and the end
+    finalMessage = this.replaceO(finalMessage); //replace all the o's in the message
+    client.say(target, finalMessage); //Log the message in the chat
 }
