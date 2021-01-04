@@ -1,2 +1,3 @@
 # oooobot
-SImply bot that replace the o with OOOO emote from BBTV
+Bot that replace the o's in a message from twich and replace with OOOO the emote from BBTV, an extension from twitch
+
