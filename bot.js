@@ -51,5 +51,5 @@ function onConnectedHandler(addr, port) {
     console.log(`* Connected to ${addr}:${port}`);
 }
 
-//TODO
-//Chequear que solo contemple si el mensaje es mayusculas, o que cuando lo remplace sea todo en mayusculas 
+//TODO : Chequear que solo contemple si el mensaje es mayusculas, o que cuando lo remplace sea todo en mayusculas 
+//TODO : Ver de parametrizar el log un poco más, por ej, si el mensaje está todo en mayus, siempre logear con el OOOO, eso puede ir en un parametro del objeto de channels que tenga la opción tipo 'logInCaps' o algo así
