@@ -41,6 +41,9 @@ function onMessageHandler(target, context, msg, self) {
 
     //If is all ok, log the message
     logMessage(msg, client, target);
+    console.log(context);
+    console.log(self);
+    console.log(client);
 }
 
 // Called every time the bot connects to Twitch chat
