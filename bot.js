@@ -27,7 +27,7 @@ function onMessageHandler(target, context, msg, self) {
         return;
     } // Ignore messages from the bot
 
-    if (msg.toLowerCase().includes('o')) {
+    if (!msg.toLowerCase().includes('o')) {
         return; //If the msg don't contain an o, return because the bot is gonna log the same mesagge
     }
 
@@ -40,7 +40,7 @@ function onMessageHandler(target, context, msg, self) {
     }
 
     //If is all ok, log the message
-    logMessage(msg, client, target); 
+    logMessage(msg, client, target);
 }
 
 // Called every time the bot connects to Twitch chat
