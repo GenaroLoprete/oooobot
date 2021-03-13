@@ -11,5 +11,5 @@ module.exports.logMessage = (message, client, target) => {
     let finalMessage = message.toLowerCase(); //Message setted to lower case
     finalMessage = finalMessage.trim(); //Remove spaces from the start and the end
     finalMessage = this.replaceO(finalMessage); //replace all the o's in the message
-    client.say(target, finalMessage); //Log the message in the chat
+    client.say(target, finalMessage.toUpperCase()); //Log the message in the chat
 }

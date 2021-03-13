@@ -41,9 +41,6 @@ function onMessageHandler(target, context, msg, self) {
 
     //If is all ok, log the message
     logMessage(msg, client, target);
-    console.log(context);
-    console.log(self);
-    console.log(client);
 }
 
 // Called every time the bot connects to Twitch chat
@@ -51,5 +48,11 @@ function onConnectedHandler(addr, port) {
     console.log(`* Connected to ${addr}:${port}`);
 }
 
-//TODO : Chequear que solo contemple si el mensaje es mayusculas, o que cuando lo remplace sea todo en mayusculas 
-//TODO : Ver de parametrizar el log un poco más, por ej, si el mensaje está todo en mayus, siempre logear con el OOOO, eso puede ir en un parametro del objeto de channels que tenga la opción tipo 'logInCaps' o algo así
+
+/*For staying the bot alive, weird, but need to have the bot alive*/
+var http = require('http');
+http.createServer(function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write('pong');
+    res.end();
+}).listen(process.env.PORT || 8000);
