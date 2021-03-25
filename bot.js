@@ -23,7 +23,9 @@ client.connect();
 
 // Called every time a message comes in
 function onMessageHandler(target, context, msg, self) {
-    console.log('read')
+    console.log(target.toString());
+    console.log(context.toString());
+    console.log(self.toString());
     if (self) {
         return;
     } // Ignore messages from the bot
@@ -57,3 +59,4 @@ http.createServer(function (req, res) {
     res.write('pong');
     res.end();
 }).listen(process.env.PORT || 8000);
+
