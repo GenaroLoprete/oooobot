@@ -23,9 +23,7 @@ client.connect();
 
 // Called every time a message comes in
 function onMessageHandler(target, context, msg, self) {
-    console.log(target.toString());
-    console.log(context.toString());
-    console.log(self.toString());
+    console.log(context);
     if (self) {
         return;
     } // Ignore messages from the bot
