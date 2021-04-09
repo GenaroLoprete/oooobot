@@ -3,6 +3,7 @@ const { logMessageInChat, canLogMessage } = require("./functions/functions");
 const { username, password, channels, botName } = require("./constants/constants");
 const { processCommands } = require("./bot-management/bot-crud");
 const database = require('./database/database-connection');
+const cron = require('node-cron');
 
 // Define configuration options
 //TODO: constants
@@ -45,14 +46,13 @@ function onMessageHandler(target, context, msg, self) {
 // Called every time the bot connects to Twitch chat
 function onConnectedHandler(addr, port) {
     console.log(`* Connected to ${addr}:${port}`);
-    require('./bot-management/bot-crud').rejoinChannels();
 }
 
 
-// /** Cron, re join the channels */
-// cron.schedule('0 3 * * *', () => {
-//     require('./functions/functions').rejoinChannels();
-// });
+/** Cron, re join the channels */
+cron.schedule('0 3 * * *', () => {
+    require('./functions/functions').rejoinChannels();
+});
 
 /*For staying the bot alive, weird, but need to have the bot alive*/
 var http = require('http');

@@ -16,3 +16,7 @@ module.exports.commands = {
     REMOVEME: '!removeme',
     HELP: '!help',
 }
+module.exports.messages = {
+    ADDED : '',
+    REMOVED : ''
+}

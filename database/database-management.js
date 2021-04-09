@@ -14,7 +14,7 @@ module.exports.insertUser = (username) => {
         try {
             const result = await findByUserName(username);
             if (result.length > 0) {
-                return resolve(); //if is already added, resolve the promise
+                return reject('YA EST OOOO Y EN TU CHAT') //if is already added, resolve the promise
             }
 
             const user = new User({ name: username });
@@ -34,7 +34,7 @@ module.exports.deleteUser = (username) => {
             const result = await findByUserName(username);
 
             if (result.length === 0) {
-                return resolve(); //if is not registered, then resolve
+                return reject('N OOOO ESTÁS EN LA LISTA!')  //if is not registered, then resolve
             }
 
             await User.findOneAndDelete({ name: username }, (err) => {

@@ -17,17 +17,17 @@ async function addToBot(context, target) {
     const { username } = context;
     try {
 
-        await global.client.join(username);
-
         await databaseManagement.insertUser(username);
 
-        logMessage(`added ${username}`, global.client, target);
+        await global.client.join(username);
+
+        logMessage(`YA EST OOOO Y EN TU CHAT ${username}`, global.client, target);
     }
     catch (err) {
 
         console.log(err);
 
-        logMessage(`Error adding ${username}, please contact @ganro12 or @GenaroLoprete in twitter`, global.client, target)
+        logMessage(err, global.client, target)
     }
 }
 
@@ -36,24 +36,24 @@ async function removeFromBot(context, target) {
 
     try {
 
-        await global.client.part(username);
-
         await databaseManagement.deleteUser(username);
 
-        logMessage(`removed ${username}`, global.client, target);
+        await global.client.part(username);
+
+        logMessage(`N OOOO EST OOOO Y MÁS ${username} EN TU CHAT`, global.client, target);
     }
     catch (err) {
 
         console.log(err);
 
-        logMessage(`Error leaving ${username}, please contact @ganro12 or @GenaroLoprete in twitter, error ${err}. You can ban me from your channel!`, global.client, target)
+        logMessage(`N OOOO EST OOOO Y MÁS ${username} EN TU CHAT`, global.client, target)
     }
 }
 
 module.exports.rejoinChannels = async () => {
     try {
-        // const usernames = await databaseManagement.getAllUsers();
-        const usernames = ['ganro12']
+        const usernames = await databaseManagement.getAllUsers();
+
         const promisesPart = usernames.map(x => {
             return new Promise((resolve, reject) => {
                 return global.client.part(x)
