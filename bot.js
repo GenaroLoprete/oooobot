@@ -27,6 +27,7 @@ global.client.connect();
 
 database.connect();
 
+console.log(Date.now);
 // Called every time a message comes in
 function onMessageHandler(target, context, msg, self) {
     //if is in the channel of the bot
@@ -50,7 +51,7 @@ function onConnectedHandler(addr, port) {
 
 /** Cron, re join the channels */
 cron.schedule('0 3 * * *', () => {
-    require('./functions/functions').rejoinChannels();
+    require('./bot-management/bot-crud').rejoinChannels();
 });
 
 /*For staying the bot alive, weird, but need to have the bot alive*/
