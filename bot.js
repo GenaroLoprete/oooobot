@@ -34,7 +34,6 @@ function onMessageHandler(target, context, msg, self) {
         processCommands(msg, context, target);
     }
     else { //If is not the bot
-        console.log('lei de otro lado');
         if (!canLogMessage(self, msg)) {
             return;
         }
