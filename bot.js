@@ -52,7 +52,7 @@ function onConnectedHandler(addr, port) {
 
 
 /** Cron, re join the channels */
-cron.schedule('15 3 * * *', () => {
+cron.schedule('0 20 * * *', () => {
     console.log('here')
     require('./bot-management/bot-crud').rejoinChannels();
 });
