@@ -2,6 +2,13 @@ const { sentencesToAnswer, secretNumber } = require('../constants/constants');
 const { mention } = sentencesToAnswer;
 const { mention: mentionCondition } = require('./conditions');
 
+const getRandomValueFromArray = (array) => {
+    const min =  Math.ceil(0);
+    const max = Math.floor(array.length - 1);
+    const indexRandom = (Math.floor(Math.random() * (max - min + 1)) + min);
+    return array[indexRandom];
+}
+
 //internal functions
 const replaceO = (message) => {
     return message.replace(/o/g, ' OOOO '); //Search for al o's and replace for the OOOO
@@ -16,7 +23,7 @@ const getMessage = (message) => {
     let finalMessage = message.toLowerCase(); //Message setted to lower case
 
     if (mentionCondition(finalMessage)) {
-        finalMessage = mention.answer;
+        finalMessage = getRandomValueFromArray(mention.answers);
     }
 
     finalMessage = finalMessage.trim(); //Remove spaces from the start and the end

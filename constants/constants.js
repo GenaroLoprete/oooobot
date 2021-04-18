@@ -8,7 +8,7 @@ module.exports.botName = '#ooooboooot'
 module.exports.sentencesToAnswer = {
     mention: {
         triggerWords: ['@ooooboooot'],
-        answer: 'Qué pasa conmigo'
+        answers: ['Qué pasa conmigo', 'o o o o o']
     }
 }
 module.exports.commands = {

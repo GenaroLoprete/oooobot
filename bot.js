@@ -26,9 +26,6 @@ global.client.connect();
 
 database.connect();
 
-var today = new Date();
-var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-console.log(time)
 // Called every time a message comes in
 function onMessageHandler(target, context, msg, self) {
     //if is in the channel of the bot
