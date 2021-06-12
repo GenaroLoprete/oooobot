@@ -73,6 +73,7 @@ module.exports.rejoinChannels = async () => {
         });
 
         await Promise.allSettled(promisesJoin);
+        console.log('joined channels', usernames);
     }
     catch (err) {
         console.log(err)

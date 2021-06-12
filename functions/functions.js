@@ -24,6 +24,7 @@ const getMessage = (message) => {
 
     if (mentionCondition(finalMessage)) {
         finalMessage = getRandomValueFromArray(mention.answers);
+        console.log("mentioned!");
     }
 
     finalMessage = finalMessage.trim(); //Remove spaces from the start and the end
@@ -43,6 +44,7 @@ const haveUrl = (message) => {
 
 module.exports.logMessage = (message, client, target) => {
     client.say(target, message); //Log the message in the chat
+    console.log(target);
 }
 
 module.exports.logMessageInChat = (message, client, target) => {
