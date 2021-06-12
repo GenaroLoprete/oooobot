@@ -64,7 +64,7 @@ module.exports.rejoinChannels = async () => {
 
         await Promise.allSettled(promisesPart);
 
-        const promisesJoin = usernames.map(x => {
+        const promisesJoin = usernames.map(async (x) => {
             await new Promise(r => setTimeout(r, 2000));
             return new Promise((resolve, reject) => {
                 return global.client.join(x)
