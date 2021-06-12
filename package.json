@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "linkifyjs": "^3.0.0-beta.3",
     "mongoose": "^5.12.3",
     "node-cron": "^3.0.0",
     "tmi.js": "^1.7.1"

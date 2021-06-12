@@ -1,9 +1,9 @@
-const { sentencesToAnswer, secretNumber } = require('../constants/constants');
+const { sentencesToAnswer, secretNumber, regexTestUrl } = require('../constants/constants');
 const { mention } = sentencesToAnswer;
 const { mention: mentionCondition } = require('./conditions');
 
 const getRandomValueFromArray = (array) => {
-    const min =  Math.ceil(0);
+    const min = Math.ceil(0);
     const max = Math.floor(array.length - 1);
     const indexRandom = (Math.floor(Math.random() * (max - min + 1)) + min);
     return array[indexRandom];
@@ -32,6 +32,15 @@ const getMessage = (message) => {
     return finalMessage.toUpperCase();
 }
 
+const isUrl = (value) => {
+    return regexTestUrl.test(value);
+}
+
+const haveUrl = (message) => {
+    return message.split(" ")
+        .some(x => isUrl(x)); //Separator for words, links are not suposed to have spaces, if some of the words are a valid url, don't log message
+}
+
 module.exports.logMessage = (message, client, target) => {
     client.say(target, message); //Log the message in the chat
 }
@@ -50,15 +59,19 @@ module.exports.canLogMessage = (self, msg) => {
         return false; //If the msg don't contain an o, return because the bot is gonna log the same mesagge
     }
 
+    //If the message contains a url, don't log message
+    if (haveUrl(msg)) {
+        return false;
+    }
+
     if (mentionCondition(msg)) {
         return true;
     }
 
     //If the random message generate the same number as the defined
     // If the command is known, let's execute it
-    const random = getRandomNumber();
 
-    if (random != secretNumber) { //If the generated number is not the same that the secret number defined in the env, don't log the message
+    if (getRandomNumber() != secretNumber) { //If the generated number is not the same that the secret number defined in the env, don't log the message
         return false;
     }
 
