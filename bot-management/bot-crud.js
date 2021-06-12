@@ -69,9 +69,10 @@ module.exports.rejoinChannels = async () => {
 
         for (let i = 0; i < usernames.length; i++) {
             await new Promise(resolve => setTimeout(resolve, 5000));
+            const channel = usernames[i];
             promisesJoin.push(
                 new Promise(async (resolve, reject) => {
-                return global.client.join(x)
+                return global.client.join(channel)
                     .then(async (_) => { console.log("joined ", x); resolve(); })
                     .catch(err => reject(err))
             }));
