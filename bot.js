@@ -33,6 +33,7 @@ function onMessageHandler(target, context, msg, self) {
         processCommands(msg, context, target);
     }
     else { //If is not the bot
+        console.log(msg);
         if (!canLogMessage(self, msg)) {
             return;
         }
