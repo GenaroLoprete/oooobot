@@ -1,6 +1,6 @@
 const { sentencesToAnswer, secretNumber, regexTestUrl } = require('../constants/constants');
-const { mention } = sentencesToAnswer;
-const { mention: mentionCondition } = require('./conditions');
+const { mention, impostor } = sentencesToAnswer;
+const { mention: mentionCondition, isImpostor } = require('./conditions');
 
 const getRandomValueFromArray = (array) => {
     const min = Math.ceil(0);
@@ -19,11 +19,15 @@ const getRandomNumber = () => {
     return Math.floor(Math.random() * process.env.SECRETNUMBER) + 1; //Generate a random number, this for preventing the bot to log the message for every message in the chat
 }
 
-const getMessage = (message) => {
+const getMessage = (message, context) => {
     let finalMessage = message.toLowerCase(); //Message setted to lower case
 
     if (mentionCondition(finalMessage)) {
         finalMessage = getRandomValueFromArray(mention.answers);
+    }
+
+    if(isImpostor(context.username)) {
+        finalMessage = getRandomValueFromArray(impostor.answers);
     }
 
     finalMessage = finalMessage.trim(); //Remove spaces from the start and the end
@@ -41,19 +45,36 @@ const haveUrl = (message) => {
         .some(x => isUrl(x)); //Separator for words, links are not suposed to have spaces, if some of the words are a valid url, don't log message
 }
 
+const mentionUserInMessage = (message, userName) => {
+    return `@${userName} ${message}`;
+}
+
 module.exports.logMessage = (message, client, target) => {
     client.say(target, message); //Log the message in the chat
 }
 
-module.exports.logMessageInChat = (message, client, target) => {
-    this.logMessage(getMessage(message), client, target); //Log the message in the chat
+module.exports.logMessageInChat = (message, client, target, context) => {
+
+    let finalMessage = getMessage(message, context);
+
+    if(isImpostor(context.username)) {
+        finalMessage = mentionUserInMessage(finalMessage, context.username);
+    }
+
+    this.logMessage(finalMessage, client, target); //Log the message in the chat
 }
 
-module.exports.canLogMessage = (self, msg) => {
+//really weird, maybe some day i gona refactor this
+module.exports.canLogMessage = (self, msg, context) => {
 
     if (self) {
         return false;
     } // Ignore messages from the bot
+
+    
+    if (isImpostor(context.username) && getRandomNumber() == secretNumber) {
+        return true;
+    }
 
     if (!msg.toLowerCase().includes('o')) {
         return false; //If the msg don't contain an o, return because the bot is gonna log the same mesagge

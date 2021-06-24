@@ -52,7 +52,7 @@ async function removeFromBot(context, target) {
 
 module.exports.rejoinChannels = async () => {
     try {
-        const usernames = await databaseManagement.getAllUsers();
+        const usernames = await databaseManagement.getAllUsers(); // ['ganro12']; //
 
         const promisesPart = usernames.map(x => {
             return new Promise((resolve, reject) => {

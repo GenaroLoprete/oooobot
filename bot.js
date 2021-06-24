@@ -30,15 +30,13 @@ database.connect();
 function onMessageHandler(target, context, msg, self) {
     //if is in the channel of the bot
     if (target === botName) {
-        processCommands(msg, context, target);
+         return processCommands(msg, context, target);
     }
-    else { //If is not the bot
-        if (!canLogMessage(self, msg)) {
-            return;
-        }
-        //If is all ok, log the message
-        logMessageInChat(msg, global.client, target);
+    if (!canLogMessage(self, msg, context)) {
+        return;
     }
+    //If is all ok, log the message
+    logMessageInChat(msg, global.client, target, context);
 }
 
 // Called every time the bot connects to Twitch chat
