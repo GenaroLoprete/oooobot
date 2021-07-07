@@ -1,6 +1,6 @@
-const { sentencesToAnswer, secretNumber, regexTestUrl } = require('../constants/constants');
-const { mention, impostor } = sentencesToAnswer;
-const { mention: mentionCondition, isImpostor } = require('./conditions');
+const { sentencesToAnswer, secretNumber, regexTestUrl, secretNumberMoreProb } = require('../constants/constants');
+const { mention, impostor, relax, creators } = sentencesToAnswer;
+const { mention: mentionCondition, isImpostor, isRelax, isCreator } = require('./conditions');
 
 const getRandomValueFromArray = (array) => {
     const min = Math.ceil(0);
@@ -16,7 +16,11 @@ const replaceO = (message) => {
 
 //get random number between 1 and the predefined number as maxnumber
 const getRandomNumber = () => {
-    return Math.floor(Math.random() * process.env.SECRETNUMBER) + 1; //Generate a random number, this for preventing the bot to log the message for every message in the chat
+    return Math.floor(Math.random() * secretNumber) + 1; //Generate a random number, this for preventing the bot to log the message for every message in the chat
+}
+
+const getRandomNumberMoreProbability = () => {
+    return Math.floor(Math.random() * 15) + 1; //in some conditions, is more funny if the condition is less random
 }
 
 const getMessage = (message, context) => {
@@ -26,8 +30,16 @@ const getMessage = (message, context) => {
         finalMessage = getRandomValueFromArray(mention.answers);
     }
 
-    if(isImpostor(context.username)) {
+    if (isImpostor(context.username)) {
         finalMessage = getRandomValueFromArray(impostor.answers);
+    }
+
+    if (isRelax(finalMessage)) {
+        finalMessage = getRandomValueFromArray(relax.answers);
+    }
+
+    if (isCreator(context.username)) {
+        finalMessage = getRandomValueFromArray(creators.answers);
     }
 
     finalMessage = finalMessage.trim(); //Remove spaces from the start and the end
@@ -57,7 +69,7 @@ module.exports.logMessageInChat = (message, client, target, context) => {
 
     let finalMessage = getMessage(message, context);
 
-    if(isImpostor(context.username)) {
+    if (isImpostor(context.username)) {
         finalMessage = mentionUserInMessage(finalMessage, context.username);
     }
 
@@ -71,8 +83,12 @@ module.exports.canLogMessage = (self, msg, context) => {
         return false;
     } // Ignore messages from the bot
 
-    
+
     if (isImpostor(context.username) && getRandomNumber() == secretNumber) {
+        return true;
+    }
+
+    if (isCreator(context.username) && getRandomNumber() == secretNumber) {
         return true;
     }
 
@@ -86,6 +102,10 @@ module.exports.canLogMessage = (self, msg, context) => {
     }
 
     if (mentionCondition(msg)) {
+        return true;
+    }
+
+    if (isRelax(msg) && getRandomNumberMoreProbability() == secretNumberMoreProb) { //if the message contains relajao
         return true;
     }
 

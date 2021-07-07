@@ -14,7 +14,15 @@ module.exports.sentencesToAnswer = {
     },
     impostor: {
         answers: ['Yo soy el real, no tu', '¡¡Impostor!!', 'La suplantación de identidad es un delito, tu computadora está siendo rastreada bip bup bop']
-    }
+    },
+    relax: {
+        triggerWords: ['relajao'],
+        answers: ['relajao']
+    },
+    creators : {
+        triggerWords: ['ganro12'],
+        answers: ['Hola ganro', 'Ganro mi creador']
+    },
 };
 module.exports.commands = {
     ADDME: '!addme',
@@ -25,4 +33,4 @@ module.exports.messages = {
     ADDED : '',
     REMOVED : ''
 }
-
+module.exports.secretNumberMoreProb = process.env.SECRETNUMBERMOREPROB;
